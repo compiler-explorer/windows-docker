@@ -18,5 +18,3 @@ jobs:
       run: docker build -t compilerexplorer/windows:latest .
     - name: Push to Docker Hub
       run: docker image push compilerexplorer/windows:latest
-    - name: Docker Hub Image Digest
-      run: echo ${{ steps.hub_build.outputs.digest }}
