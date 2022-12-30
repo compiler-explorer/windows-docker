@@ -16,6 +16,8 @@ ADD setup-ce.ps1 setup-ce.ps1
 
 RUN powershell -ExecutionPolicy Bypass -File C:\\tmp\\setup-ce.ps1
 
+WORKDIR C:\\compilerexplorer
+
 ADD compiler-explorer.local.properties etc/config/compiler-explorer.local.properties
 ADD c++.win32.properties etc/config/c++.win32.properties
 ADD pascal.win32.properties etc/config/pascal.win32.properties
@@ -29,6 +31,5 @@ ADD empty.win32.properties etc/config/cpp2_cppfront.win32.properties
 
 ADD run.ps1 run.ps1
 
-WORKDIR C:\\compilerexplorer
 
 CMD ["powershell", "-ExecutionPolicy", "Bypass", "-File", "C:\\tmp\\run.ps1"]
