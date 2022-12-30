@@ -1,7 +1,7 @@
 
 
 
-New-SmbMapping -GlobalMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
+New-SmbMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
 
 setx PATH "%PATH%;Z:/compilers/mingw-8.1.0/mingw64/bin"
 
