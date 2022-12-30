@@ -29,4 +29,6 @@ ADD empty.win32.properties etc/config/cpp2_cppfront.win32.properties
 
 ADD run.ps1 run.ps1
 
+WORKDIR C:\\compilerexplorer
+
 CMD ["powershell", "-ExecutionPolicy", "Bypass", "-File", "C:\\tmp\\run.ps1"]
