@@ -2,7 +2,7 @@
 git clone https://github.com/compiler-explorer/compiler-explorer /compilerexplorer
 cd /compilerexplorer
 
-git checkout main
+git checkout mg/pe32ts
 git pull
 
 npm i
