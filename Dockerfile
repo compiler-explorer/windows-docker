@@ -19,6 +19,6 @@ ADD c++.win32.properties c++.win32.properties
 ADD pascal.win32.properties pascal.win32.properties
 ADD empty.win32.properties empty.win32.properties
 
-RUN mkdir /compilerexplorer
+RUN mkdir C:\\compilerexplorer
 
 CMD ["powershell", "-ExecutionPolicy", "Bypass", "-File", "C:\\tmp\\run.ps1"]
