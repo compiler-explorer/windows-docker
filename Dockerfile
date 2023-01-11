@@ -12,23 +12,13 @@ RUN powershell -Command Invoke-WebRequest -Uri "https://nodejs.org/download/rele
     msiexec /quiet /i node-installer.msi && \
     del /q node-installer.msi
 
-ADD setup-ce.ps1 setup-ce.ps1
-
-RUN powershell -ExecutionPolicy Bypass -File C:\\tmp\\setup-ce.ps1
-
 ADD run.ps1 run.ps1
 
-WORKDIR C:\\compilerexplorer
+ADD compiler-explorer.local.properties compiler-explorer.local.properties
+ADD c++.win32.properties c++.win32.properties
+ADD pascal.win32.properties pascal.win32.properties
+ADD empty.win32.properties empty.win32.properties
 
-ADD compiler-explorer.local.properties etc/config/compiler-explorer.local.properties
-ADD c++.win32.properties etc/config/c++.win32.properties
-ADD pascal.win32.properties etc/config/pascal.win32.properties
-ADD empty.win32.properties etc/config/python.win32.properties
-ADD empty.win32.properties etc/config/hlsl.win32.properties
-ADD empty.win32.properties etc/config/ocaml.win32.properties
-ADD empty.win32.properties etc/config/rust.win32.properties
-ADD empty.win32.properties etc/config/hook.win32.properties
-ADD empty.win32.properties etc/config/circle.win32.properties
-ADD empty.win32.properties etc/config/cpp2_cppfront.win32.properties
+RUN mkdir /compilerexplorer
 
 CMD ["powershell", "-ExecutionPolicy", "Bypass", "-File", "C:\\tmp\\run.ps1"]
