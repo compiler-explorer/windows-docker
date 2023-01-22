@@ -53,4 +53,4 @@ $securePassword = ConvertTo-SecureString "cePwd123!" -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential $CE_USER,$securePassword
 
 $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--env","ecs","--env","win32","--language","c++,pascal")
-Start-Process node -Credential $credential -ArgumentList $nodeargs
+Start-Process node -Credential $credential -NoNewWindow -ArgumentList $nodeargs
