@@ -12,7 +12,15 @@ RUN powershell -Command Invoke-WebRequest -Uri "https://nodejs.org/download/rele
     msiexec /quiet /i node-installer.msi && \
     del /q node-installer.msi
 
+RUN powershell -Command $pwd=ConvertTo-SecureString "pwd" -AsPlainText -Force; New-LocalUser "ce" -Password $pwd -PasswordNeverExpires -UserMayNotChangePassword -FullName "CE" -Description "Special user for running Compiler Explorer"
+
+RUN powershell -Command Add-LocalGroupMember -Group "Users" -Member "ce"
+
 ADD run.ps1 run.ps1
+
+ADD install.ps1 install.ps1
+
+RUN powershell -ExecutionPolicy ByPass -File "C:\\tmp\\install.ps1"
 
 ADD compiler-explorer.local.properties compiler-explorer.local.properties
 ADD c++.win32.properties c++.win32.properties
