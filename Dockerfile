@@ -12,10 +12,6 @@ RUN powershell -Command Invoke-WebRequest -Uri "https://nodejs.org/download/rele
     msiexec /quiet /i node-installer.msi && \
     del /q node-installer.msi
 
-RUN powershell -Command $pwd=ConvertTo-SecureString "pwd" -AsPlainText -Force; New-LocalUser -User "ce" -Password $pwd -PasswordNeverExpires -FullName "CE" -Description "Special user for running Compiler Explorer"
-
-RUN powershell -Command Add-LocalGroupMember -Group "Users" -Member "ce"
-
 ADD run.ps1 run.ps1
 
 ADD install.ps1 install.ps1
