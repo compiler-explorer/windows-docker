@@ -99,7 +99,7 @@ function CreateCredAndRun {
     # DenyAccessByCE -Path "C:\Program Files\Grafana Agent\agent-config.yaml"
 
     $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--logHost",(GetLogHost),"--logPort",(GetLogPort),"--env","ecs","--env","win32","--language","c++,pascal")
-    Write-Host "Starting node with args " $nodeargs -join " "
+    Write-Host "Starting node with args " $nodeargs
 
     $psi = New-object System.Diagnostics.ProcessStartInfo 
     $psi.CreateNoWindow = $true 
@@ -110,12 +110,21 @@ function CreateCredAndRun {
     $psi.RedirectStandardError = $true 
     $psi.FileName = "node"
     $psi.Arguments = $nodeargs
+    
+    Write-Host "Created ProcessStartInfo thing"
+    
     $process = New-Object System.Diagnostics.Process 
     $process.StartInfo = $psi 
+    
+    Write-Host "Going to start the process"
+    
     [void]$process.Start()
     $output = $process.StandardOutput.ReadToEnd() 
+    Write-Host "Waiting"
     $process.WaitForExit() 
+    Write-Host "Done waiting"
     $output
+    Write-Host "The End"
 }
 
 Set-Location -Path $DEPLOY_DIR
