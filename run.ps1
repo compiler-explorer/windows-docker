@@ -100,7 +100,22 @@ function CreateCredAndRun {
 
     $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--logHost",(GetLogHost),"--logPort",(GetLogPort),"--env","ecs","--env","win32","--language","c++,pascal")
     Write-Host "Starting node with args " $nodeargs -join " "
-    Start-Process node -Credential $credential -NoNewWindow -Wait -ArgumentList $nodeargs
+
+    $psi = New-object System.Diagnostics.ProcessStartInfo 
+    $psi.CreateNoWindow = $true 
+    $psi.UseShellExecute = $false 
+    $psi.UserName = $credential.UserName
+    $psi.Password = $credential.Password
+    $psi.RedirectStandardOutput = $true 
+    $psi.RedirectStandardError = $true 
+    $psi.FileName = "node"
+    $psi.Arguments = $nodeargs
+    $process = New-Object System.Diagnostics.Process 
+    $process.StartInfo = $psi 
+    [void]$process.Start()
+    $output = $process.StandardOutput.ReadToEnd() 
+    $process.WaitForExit() 
+    $output
 }
 
 Set-Location -Path $DEPLOY_DIR
