@@ -10,6 +10,8 @@ $BUILD_NUMBER = $env:BUILD_NUMBER
 $CE_ENV = $env:CE_ENV
 $CE_USER = "ce"
 
+Set-DefaultAWSRegion -Region us-east-1
+
 function update_code {
     Write-Host "Current environment $CE_ENV"
     Invoke-WebRequest -Uri "https://s3.amazonaws.com/compiler-explorer/version/$CE_ENV" -OutFile "/tmp/s3key.txt"
@@ -79,22 +81,22 @@ function GetConf {
         $name
     )
 
-    return (Get-SSMParameterValue -Name $name).Parameter.Value
+    return (Get-SSMParameterValue -Name $name).Parameter.Value;
 }
 
 function GetLogHost {
-    return GetConf "/compiler-explorer/logDestHost"
+    return GetConf "/compiler-explorer/logDestHost";
 }
 
 function GetLogPort {
-    return GetConf "/compiler-explorer/logDestPort"
+    return GetConf "/compiler-explorer/logDestPort";
 }
 
 function CreateCredAndRun {
     $pass = GeneratePassword;
     RecreateUser $pass;
     $credential = New-Object System.Management.Automation.PSCredential($CE_USER,$pass);
-    DenyAccessByCE -Path "C:\Program Files\Grafana Agent\agent-config.yaml"
+    # DenyAccessByCE -Path "C:\Program Files\Grafana Agent\agent-config.yaml"
 
     $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--logHost",(GetLogHost),"--logPort",(GetLogPort),"--env","ecs","--env","win32","--language","c++,pascal")
     Write-Host "Starting node with args " $nodeargs -join " "
