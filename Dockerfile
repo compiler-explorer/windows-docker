@@ -12,7 +12,7 @@ RUN powershell -Command Invoke-WebRequest -Uri "https://nodejs.org/download/rele
     msiexec /quiet /i node-installer.msi && \
     del /q node-installer.msi
 
-RUN powershell -Command $pwd=ConvertTo-SecureString "pwd" -AsPlainText -Force; New-LocalUser "ce" -Password $pwd -PasswordNeverExpires -UserMayNotChangePassword -FullName "CE" -Description "Special user for running Compiler Explorer"
+RUN powershell -Command $pwd=ConvertTo-SecureString "pwd" -AsPlainText -Force; New-LocalUser -User "ce" -Password $pwd -PasswordNeverExpires -FullName "CE" -Description "Special user for running Compiler Explorer"
 
 RUN powershell -Command Add-LocalGroupMember -Group "Users" -Member "ce"
 
