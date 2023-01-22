@@ -44,12 +44,15 @@ Copy-Item -Path "c++.win32.properties" -Destination "$DEPLOY_DIR/etc/config/c++.
 Copy-Item -Path "pascal.win32.properties" -Destination "$DEPLOY_DIR/etc/config/pascal.win32.properties"
 
 function RecreateUser {
-    Remove-LocalUser $CE_USER
+    $exists = (Get-LocalUser $CE_USER -ErrorAction Ignore) -as [bool]
+    if ($exists) {
+        Remove-LocalUser $CE_USER
+    }
 
     $pass = -join ((1..15) | %{get-random -minimum 33 -maximum 127 | %{[char]$_}}) + -join ((1..2) | %{get-random -minimum 33 -maximum 48 | %{[char]$_}}) -replace "c","" -replace "e", "" -replace "C","" -replace "E", ""
     $securePassword = ConvertTo-SecureString $pass -AsPlainText -Force
-    New-LocalUser -User "ce" -Password $securePassword -PasswordNeverExpires -FullName "CE" -Description "Special user for running Compiler Explorer"
-    Add-LocalGroupMember -Group "Users" -Member "ce"
+    New-LocalUser -User $CE_USER -Password $securePassword -PasswordNeverExpires -FullName "CE" -Description "Special user for running Compiler Explorer"
+    Add-LocalGroupMember -Group "Users" -Member $CE_USER
 
     return New-Object System.Management.Automation.PSCredential $CE_USER,$securePassword
 }
