@@ -1,5 +1,7 @@
 Write-Host "Installing AWS tools, might take a while"
-Install-Module -Name AWSPowerShell -Force
+Install-Module -Name AWS.Tools.Common -Force
+Install-Module -Name AWS.Tools.Installer -Force
+Install-AWSToolsModule AWS.Tools.SimpleSystemsManagement -Force
 Set-DefaultAWSRegion -Region us-east-1
 Write-Host "Done installing AWS Tools"
 
