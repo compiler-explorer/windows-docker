@@ -74,13 +74,29 @@ function RecreateUser {
     Add-LocalGroupMember -Group "Users" -Member $CE_USER;
 }
 
+function GetConf {
+    Param(
+        $name
+    )
+
+    return (Get-SSMParameterValue -Name $name).Parameter.Value
+}
+
+function GetLogHost {
+    return GetConf "/compiler-explorer/logDestHost"
+}
+
+function GetLogPort {
+    return GetConf "/compiler-explorer/logDestPort"
+}
+
 function CreateCredAndRun {
     $pass = GeneratePassword;
     RecreateUser $pass;
     $credential = New-Object System.Management.Automation.PSCredential($CE_USER,$pass);
     DenyAccessByCE -Path "C:\Program Files\Grafana Agent\agent-config.yaml"
 
-    $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--env","ecs","--env","win32","--language","c++,pascal")
+    $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--logHost",(GetLogHost),"--logPort",(GetLogPort),"--env","ecs","--env","win32","--language","c++,pascal")
     Write-Host "Starting node with args " $nodeargs -join " "
     Start-Process node -Credential $credential -NoNewWindow -Wait -ArgumentList $nodeargs
 }
