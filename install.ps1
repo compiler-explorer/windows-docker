@@ -8,26 +8,5 @@ msiexec /quiet /i "C:\tmp\windows_exporter-0.20.0-amd64.msi"
 
 Remove-Item -Path "C:\tmp\windows_exporter-0.20.0-amd64.msi"
 
-function CreateCEUser {
-    $pass = ConvertTo-SecureString "cePwd123!" -AsPlainText -Force
-    
-    New-LocalUser -User "ce" -Password $pass -PasswordNeverExpires -FullName "CE" -Description "Special user for running Compiler Explorer"
-
-    Add-LocalGroupMember -Group "Users" -Member "ce"
-}
-
-function DenyAccessByCE {
-    param (
-        $Path
-    )
-
-    $ACL = Get-ACL -Path $Path
-    $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("ce", "FullControl", "Deny")
-    $ACL.AddAccessRule($AccessRule)
-    $ACL | Set-Acl -Path $Path
-}
-
-CreateCEUser
-DenyAccessByCE -Path "C:\Program Files\Grafana Agent\agent-config.yaml"
 
 # todo populate C:\Program Files\Grafana Agent\agent-config.yaml with things
