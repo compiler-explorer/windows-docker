@@ -9,7 +9,7 @@ msiexec /quiet /i "C:\tmp\windows_exporter-0.20.0-amd64.msi"
 Remove-Item -Path "C:\tmp\windows_exporter-0.20.0-amd64.msi"
 
 function CreateCEUser {
-    $pass = ConvertTo-SecureString "pwd" -AsPlainText -Force
+    $pass = ConvertTo-SecureString "cePwd123!" -AsPlainText -Force
     
     New-LocalUser -User "ce" -Password $pass -PasswordNeverExpires -FullName "CE" -Description "Special user for running Compiler Explorer"
 

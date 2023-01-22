@@ -49,7 +49,7 @@ Set-Location -Path $DEPLOY_DIR
 # todo: language limit should be configured into the build
 
 $CE_USER = "ce"
-$securePassword = ConvertTo-SecureString "pwd" -AsPlainText -Force
+$securePassword = ConvertTo-SecureString "cePwd123!" -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential $CE_USER,$securePassword
 
 $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--env","ecs","--env","win32","--language","c++,pascal")
