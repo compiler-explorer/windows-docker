@@ -78,18 +78,18 @@ function RecreateUser {
 
 function GetConf {
     Param(
-        $name
+        $Name
     )
 
-    return (Get-SSMParameterValue -Name $name).Parameter.Value;
+    return (Get-SSMParameterValue -Name $Name).Parameters.Value;
 }
 
 function GetLogHost {
-    return GetConf "/compiler-explorer/logDestHost";
+    return GetConf -Name "/compiler-explorer/logDestHost";
 }
 
 function GetLogPort {
-    return GetConf "/compiler-explorer/logDestPort";
+    return GetConf -Name "/compiler-explorer/logDestPort";
 }
 
 function CreateCredAndRun {
