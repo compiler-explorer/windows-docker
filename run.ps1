@@ -2,8 +2,6 @@
 
 New-SmbMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
 
-$env:PATH = "$env:PATH;Z:/compilers/mingw-8.1.0/mingw64/bin"
-$env:NODE_ENV = "production"
 
 $DEPLOY_DIR = "/compilerexplorer"
 $BUILD_NUMBER = $env:BUILD_NUMBER
@@ -111,7 +109,9 @@ function CreateCredAndRun {
     $psi.WorkingDirectory = Get-Location
     $psi.FileName = "node"
     $psi.Arguments = $nodeargs
-    
+    $psi.EnvironmentVariables["NODE_ENV"] = "production"
+    $psi.EnvironmentVariables["PATH"] = "$env:PATH;Z:/compilers/mingw-8.1.0/mingw64/bin"
+
     Write-Host "Created ProcessStartInfo thing"
     
     $process = New-Object System.Diagnostics.Process 
