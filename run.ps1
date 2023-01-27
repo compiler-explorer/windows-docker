@@ -120,10 +120,13 @@ function CreateCredAndRun {
     
     [void]$process.Start()
     $output = $process.StandardOutput.ReadToEnd() 
+    $err = $process.StandardError.ReadToEnd() 
     Write-Host "Waiting"
     $process.WaitForExit() 
-    Write-Host "Done waiting"
-    $output
+    Write-Host "Done waiting, output:"
+    Write-Host $output
+    Write-Host "err:"
+    Write-Host $err
     Write-Host "The End"
 }
 
