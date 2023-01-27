@@ -1,7 +1,5 @@
 
-
-New-SmbMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
-
+New-GlobalSmbMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
 
 $DEPLOY_DIR = "/compilerexplorer"
 $BUILD_NUMBER = $env:BUILD_NUMBER

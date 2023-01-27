@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
 LABEL Description="CE for Windows" Vendor="compilerexplorer" Version="0.0.1"
 
