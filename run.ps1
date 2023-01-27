@@ -107,7 +107,7 @@ function CreateCredAndRun {
     $psi.UserName = $credential.UserName
     $psi.Password = $credential.Password
     $psi.RedirectStandardOutput = $true 
-    $psi.RedirectStandardError = $true 
+    $psi.WorkingDirectory = Get-Location
     $psi.FileName = "node"
     $psi.Arguments = $nodeargs
     
