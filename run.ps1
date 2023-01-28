@@ -1,5 +1,5 @@
 
-New-GlobalSmbMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
+New-SmbMapping -GlobalMapping -LocalPath 'Z:' -RemotePath '\\172.30.0.29\winshared'
 
 $DEPLOY_DIR = "/compilerexplorer"
 $BUILD_NUMBER = $env:BUILD_NUMBER
@@ -105,7 +105,7 @@ function CreateCredAndRun {
     $psi.RedirectStandardOutput = $true 
     $psi.RedirectStandardError = $true
     $psi.WorkingDirectory = Get-Location
-    $psi.FileName = "node"
+    $psi.FileName = "node.exe"
     $psi.Arguments = $nodeargs
     $psi.EnvironmentVariables["NODE_ENV"] = "production"
     $psi.EnvironmentVariables["PATH"] = "$env:PATH;Z:/compilers/mingw-8.1.0/mingw64/bin"
