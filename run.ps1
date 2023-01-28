@@ -97,36 +97,38 @@ function CreateCredAndRun {
     $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--logHost",(GetLogHost),"--logPort",(GetLogPort),"--env","ecs","--env","win32","--language","c++,pascal")
     Write-Host "Starting node with args " $nodeargs
 
-    $psi = New-object System.Diagnostics.ProcessStartInfo 
-    $psi.CreateNoWindow = $true 
-    $psi.UseShellExecute = $false 
-    $psi.UserName = $credential.UserName
-    $psi.Password = $credential.Password
-    $psi.RedirectStandardOutput = $true 
-    $psi.RedirectStandardError = $true
-    $psi.WorkingDirectory = Get-Location
-    $psi.FileName = "node.exe"
-    $psi.Arguments = $nodeargs
-    $psi.EnvironmentVariables["NODE_ENV"] = "production"
-    $psi.EnvironmentVariables["PATH"] = "$env:PATH;Z:/compilers/mingw-8.1.0/mingw64/bin"
+    Start-Process node -Credential $credential -NoNewWindow -Wait -ArgumentList $nodeargs
 
-    Write-Host "Created ProcessStartInfo thing"
+    # $psi = New-object System.Diagnostics.ProcessStartInfo 
+    # $psi.CreateNoWindow = $true 
+    # $psi.UseShellExecute = $false 
+    # $psi.UserName = $credential.UserName
+    # $psi.Password = $credential.Password
+    # $psi.RedirectStandardOutput = $true 
+    # $psi.RedirectStandardError = $true
+    # $psi.WorkingDirectory = Get-Location
+    # $psi.FileName = "node.exe"
+    # $psi.Arguments = $nodeargs
+    # $psi.EnvironmentVariables["NODE_ENV"] = "production"
+    # $psi.EnvironmentVariables["PATH"] = "$env:PATH;Z:/compilers/mingw-8.1.0/mingw64/bin"
+
+    # Write-Host "Created ProcessStartInfo thing"
     
-    $process = New-Object System.Diagnostics.Process 
-    $process.StartInfo = $psi 
+    # $process = New-Object System.Diagnostics.Process 
+    # $process.StartInfo = $psi 
     
-    Write-Host "Going to start the process"
+    # Write-Host "Going to start the process"
     
-    [void]$process.Start()
-    $output = $process.StandardOutput.ReadToEnd() 
-    $err = $process.StandardError.ReadToEnd() 
-    Write-Host "Waiting"
-    $process.WaitForExit() 
-    Write-Host "Done waiting, output:"
-    Write-Host $output
-    Write-Host "err:"
-    Write-Host $err
-    Write-Host "The End"
+    # [void]$process.Start()
+    # $output = $process.StandardOutput.ReadToEnd() 
+    # $err = $process.StandardError.ReadToEnd() 
+    # Write-Host "Waiting"
+    # $process.WaitForExit() 
+    # Write-Host "Done waiting, output:"
+    # Write-Host $output
+    # Write-Host "err:"
+    # Write-Host $err
+    # Write-Host "The End"
 }
 
 Set-Location -Path $DEPLOY_DIR
