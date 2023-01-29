@@ -97,6 +97,8 @@ function CreateCredAndRun {
     $nodeargs = ("--max_old_space_size=6000","-r","esm","--","app.js","--dist","--logHost",(GetLogHost),"--logPort",(GetLogPort),"--env","ecs","--env","win32","--language","c++,pascal")
     Write-Host "Starting node with args " $nodeargs
 
+    # $env:NODE_ENV = "production"
+    # $env:PATH = "$env:PATH;Z:/compilers/mingw-8.1.0/mingw64/bin"
     # node --max_old_space_size=6000 -r esm -- app.js --dist --env ecs --env win32 --language "c++,pascal"
     # Start-Process node -Credential $credential -NoNewWindow -Wait -ArgumentList $nodeargs
 

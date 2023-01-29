@@ -13,7 +13,7 @@ RUN pwsh -Command Invoke-WebRequest -Uri "https://github.com/git-for-windows/git
     del /q Git-2.28.0-64-bit.exe
 
 RUN pwsh -Command Invoke-WebRequest -Uri "https://nodejs.org/download/release/v16.19.0/node-v16.19.0-x64.msi" -OutFile "C:\tmp\node-installer.msi" && \
-    msiexec /quiet /i node-installer.msi && \
+    msiexec /quiet ALLUSERS=1 /i node-installer.msi && \
     del /q node-installer.msi
 
 ADD run.ps1 run.ps1
