@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2022
+FROM mcr.microsoft.com/windows/servercore:ltsc2022-KB5022291-amd64
 
 LABEL Description="CE for Windows" Vendor="compilerexplorer" Version="0.0.1"
 
